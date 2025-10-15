@@ -49,7 +49,7 @@ if %ERRORLEVEL% NEQ 0 (
 )
 
 echo Installing additional dependencies...
-pip install PyQt6 transformers opencv-python-headless
+pip install PyQt6 transformers opencv-python-headless "pydantic<2.0.0"
 if %ERRORLEVEL% NEQ 0 (
     echo Error installing dependencies.
     pause

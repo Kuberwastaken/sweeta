@@ -13,9 +13,9 @@ dependencies:
   - pillow
   - opencv
   - pip:
-      - --extra-index-url https://download.pytorch.org/whl/nightly/cu126
-      - torch
-      - torchvision
-      - torchaudio
+      - torch>=2.0.0
+      - torchvision>=0.15.0
+      - torchaudio>=2.0.0
+      - pydantic<2.0.0
       - huggingface-hub>=0.23.0
       - iopaint

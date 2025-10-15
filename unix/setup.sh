@@ -117,8 +117,8 @@ if [ "$ACTIVATE_ONLY" = true ]; then
 fi
 
 # Ensure required dependencies are installed
-echo "Installing PyQt6, transformers, opencv-python-headless..."
-pip install PyQt6 transformers opencv-python-headless
+echo "Installing PyQt6, transformers, opencv-python-headless, pydantic..."
+pip install PyQt6 transformers opencv-python-headless "pydantic<2.0.0"
 
 echo "Installing compatible huggingface-hub version..."
 pip install "huggingface-hub<0.20"

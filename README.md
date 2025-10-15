@@ -65,10 +65,18 @@ conda env create -f environment.yml
 # Activate the environment
 conda activate py312aiwatermark
 
-# Install additional dependencies
-pip install PyQt6 transformers iopaint opencv-python-headless
+# Install additional dependencies (including required version pins)
+pip install PyQt6 transformers iopaint opencv-python-headless "pydantic<2.0.0"
 
 # Download the LaMA model
+iopaint download --model lama
+```
+
+**Alternative: Using requirements.txt**
+```powershell
+conda create -n py312aiwatermark python=3.12
+conda activate py312aiwatermark
+pip install -r requirements.txt
 iopaint download --model lama
 ```
 
@@ -79,12 +87,20 @@ iopaint download --model lama
 cd /path/to/Sweeta
 
 # Run the setup script
-bash linux/setup.sh
+bash unix/setup.sh
 
 # Or manually:
 conda env create -f environment.yml
 conda activate py312aiwatermark
-pip install PyQt6 transformers iopaint opencv-python-headless
+pip install PyQt6 transformers iopaint opencv-python-headless "pydantic<2.0.0"
+iopaint download --model lama
+```
+
+**Alternative: Using requirements.txt**
+```bash
+conda create -n py312aiwatermark python=3.12
+conda activate py312aiwatermark
+pip install -r requirements.txt
 iopaint download --model lama
 ```
 
@@ -142,13 +158,41 @@ Refer #ui.yml.example
    - **Max BBox Percent**: Adjust detection sensitivity (1-100%)
    - **Output Format**: Choose PNG, WEBP, JPG, or keep original format
 
+## 🔧 Troubleshooting
+
+For detailed troubleshooting steps, see **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)**.
+
 ### Common Issues
+
+#### AttributeError: 'ValidationInfo' object has no attribute 'sd_seed'
+**Solution**: This is a Pydantic version incompatibility issue. The installation scripts now automatically install the correct version. If you installed manually, run:
+```bash
+pip install "pydantic<2.0.0"
+```
 
 #### ImportError: cannot import name 'cached_download' from 'huggingface_hub'
 **Solution**: This is a version compatibility issue. The installation scripts now automatically install the correct version. If you installed manually, run:
 ```bash
 pip install "huggingface-hub<0.20"
 pip install --upgrade iopaint
+```
+
+#### GPU Not Detected (Shows "Using device: cpu")
+**Solution**: Install PyTorch with CUDA support. First, uninstall existing PyTorch:
+```bash
+pip uninstall torch torchvision torchaudio
+```
+Then reinstall with CUDA support (for CUDA 11.8):
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+Or for CUDA 12.1:
+```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+Verify CUDA is available:
+```bash
+python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
 ```
 
 #### "Conda is not recognized as an internal or external command"
@@ -161,6 +205,7 @@ pip install PyQt6
 pip install transformers
 pip install iopaint
 pip install opencv-python-headless
+pip install "pydantic<2.0.0"
 ```
 
 #### Application Won't Start
@@ -176,7 +221,7 @@ python --version  # Should show Python 3.12.x
 iopaint download --model lama
 ```
 
-#### CUDA/GPU Issues
+#### CUDA/GPU Issues (Legacy)
 **Solution**: Install PyTorch with CUDA support:
 ```bash
 pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118

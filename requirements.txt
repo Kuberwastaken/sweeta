@@ -1,0 +1,30 @@
+# Core dependencies for Sweeta
+# Python 3.12 required
+
+# Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Computer Vision & ML
+opencv-python-headless
+transformers
+pillow
+numpy
+
+# Inpainting
+iopaint
+pydantic<2.0.0  # Required for iopaint compatibility
+
+# Hugging Face
+huggingface-hub>=0.23.0
+
+# GUI
+PyQt6
+
+# Utilities
+click
+tqdm
+loguru
+pyyaml
+psutil

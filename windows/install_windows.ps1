@@ -54,7 +54,7 @@ $activateScript = Join-Path $condaExe "..\..\shell\condabin\conda-hook.ps1"
 conda activate py312aiwatermark
 
 Write-Host "Installing additional dependencies..." -ForegroundColor Cyan
-pip install PyQt6 transformers opencv-python-headless
+pip install PyQt6 transformers opencv-python-headless "pydantic<2.0.0"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "Error installing dependencies." -ForegroundColor Red
     Read-Host -Prompt "Press Enter to exit"
